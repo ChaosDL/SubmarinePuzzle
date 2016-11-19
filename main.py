@@ -1,10 +1,11 @@
-import random
-lowestPosition=0
-lowestVelocity=1
-subPosition = int(input("Enter an int for sub position\n"))#random.randint(lowestPosition,10)
-subVelocity = int(input("Enter an int for sub velocity\n"))#random.randint(lowestVelocity,10)
-currentPosition = 0
-currentVelocity = 1
+#python submarine puzzle
+#
+#
+#lowest and current is to same value
+lowestPosition, currentPosition = 1,1
+lowestVelocity, currentVelocity = 0,0
+subPosition = int(input("Enter a natural number for sub position; i.e p>0\n"))
+subVelocity = int(input("Enter a whole number for sub velocity; i.e. v>=0\n"))
 #True means the coordinates are counted in a clockwise path i.e. scale units right, scale units down, in the path of a top right corner. False means the coords are counted in a ccw path i.e. scale units up, scale units left
 rightCornerCW = True
 #How many units a direction is moved. Is increased by one everytime rightCornerCW is alternated
@@ -38,7 +39,7 @@ def nextPair():
 			currentPosition, positionCounter = currentPosition-1, positionCounter-1
 	checkCounters()
 	return(currentPosition, currentVelocity)
-#Checks if it's appropriate to increment position or velocity. Called before nextPair
+#Checks if it's appropriate to increment position or velocity before/after doing a corner path. Called before nextPair
 def considerLowPositions():
 	global currentPosition, lowestPosition 
 	global currentVelocity, lowestVelocity
@@ -55,6 +56,10 @@ def positionToHit(testInitialPosition, testVelocity, currentTime):
 
 def main():
 	global subPosition, subVelocity, time
+#	checks if subPosition is 0, in case someone is being a rebel and doesn't read the directions
+	if subPosition == 0 :
+		print("Sub initial pos: " + str(currentPosition), "Sub vel: " + str(currentVelocity), "Time :" + str(time), "Sub current pos:" + str(subPosition))
+		return
 	coords = (currentPosition, currentVelocity)
 	lowConsidered = False
 	while( subPosition != positionToHit(coords[0], coords[1], time)):
@@ -68,6 +73,6 @@ def main():
 		if lowConsidered:
 			coords=nextPair()
 			lowConsidered = False
-	print("Sub initial pos: " + str(currentPosition), "Sub vel: " + str(currentVelocity), "Time :" + str(time), "Sub current pos:" + str(subPosition))
+	print("Sub initial position: " + str(currentPosition), "Sub velocity: " + str(currentVelocity), "Time :" + str(time), "Sub current position:" + str(subPosition))
 main()
 #try using two booleans instead of the continue for fun
