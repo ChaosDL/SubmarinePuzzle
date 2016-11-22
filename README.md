@@ -1,2 +1,2 @@
 # SubmarinePuzzle Solver
-- Solves the submarine puzzle considering whole numbers
+Solves the submarine puzzle considering whole numbers
